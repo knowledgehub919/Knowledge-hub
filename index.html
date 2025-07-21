@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Hub - Articles & Blogs</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Variables */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+
+        /* Global Styles */
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1200x600/?writing');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Featured Articles */
+        .featured {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .article-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover .article-img img {
+            transform: scale(1.1);
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .article-excerpt {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Popular Categories */
+        .categories {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .category-card {
+            background-color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .category-count {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0 25px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #bdc3c7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 5px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Knowledge<span>Hub</span></a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Articles</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Discover & Share Knowledge</h1>
+            <p>Explore our collection of insightful articles and blogs on various topics ranging from technology to lifestyle, health to business, and much more.</p>
+            <a href="#" class="btn">Start Reading</a>
+        </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="featured">
+        <div class="container">
+            <h2 class="section-title">Featured Articles</h2>
+            <div class="articles-grid">
+                <!-- Article 1 -->
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://source.unsplash.com/random/600x400/?technology" alt="Article Image">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Technology</span>
+                        <h3 class="article-title">The Future of Artificial Intelligence in 2023</h3>
+                        <p class="article-excerpt">Exploring the latest advancements in AI and how they're shaping our future...</p>
+                        <div class="article-meta">
+                            <span>John Doe</span>
+                            <span>May 15, 2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://source.unsplash.com/random/600x400/?health" alt="Article Image">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Health</span>
+                        <h3 class="article-title">10 Simple Habits for a Healthier Lifestyle</h3>
+                        <p class="article-excerpt">Small changes that can make a big difference in your overall health and wellbeing...</p>
+                        <div class="article-meta">
+                            <span>Jane Smith</span>
+                            <span>June 2, 2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="article-card">
+                    <div class="article-img">
+                        <img src="https://source.unsplash.com/random/600x400/?business" alt="Article Image">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Business</span>
+                        <h3 class="article-title">Remote Work: The New Normal for Businesses</h3>
+                        <p class="article-excerpt">How companies are adapting to the remote work revolution and what it means for the future...</p>
+                        <div class="article-meta">
+                            <span>Mike Johnson</span>
+                            <span>April 28, 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Popular Categories</h2>
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <div class="category-card">
+                    <div class="category-icon">💻</div>
+                    <h3 class="category-title">Technology</h3>
+                    <p class="category-count">85 Articles</p>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card">
+                    <div class="category-icon">🍎</div>
+                    <h3 class="category-title">Health</h3>
+                    <p class="category-count">62 Articles</p>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-card">
+                    <div class="category-icon">💰</div>
+                    <h3 class="category-title">Finance</h3>
+                    <p class="category-count">45 Articles</p>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-card">
+                    <div class="category-icon">✈️</div>
+                    <h3 class="category-title">Travel</h3>
+                    <p class="category-count">38 Articles</p>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="category-card">
+                    <div class="category-icon">🍳</div>
+                    <h3 class="category-title">Food</h3>
+                    <p class="category-count">29 Articles</p>
+                </div>
+
+                <!-- Category 6 -->
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3 class="category-title">Design</h3>
+                    <p class="category-count">27 Articles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2 class="section-title">Subscribe to Our Newsletter</h2>
+            <p>Stay updated with our latest articles and news. No spam, just valuable content.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn-accent">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Column 1 -->
+                <div class="footer-column">
+                    <h3>About KnowledgeHub</h3>
+                    <p>KnowledgeHub is a platform dedicated to sharing insightful articles and blogs on various topics to help you learn and grow.</p>
+                    <div class="social-links">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>IG</span></a>
+                        <a href="#"><span>LI</span></a>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Articles</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Popular</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Health</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">Lifestyle</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: mm11vv123@gmail.com</p>
+                    <p>Phone: +919958417903</p>
+                    <p>Address: h.no haiderpur shalimar bagh delhi 110088</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 KnowledgeHub. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Newsletter Form Submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = newsletterForm.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+            newsletterForm.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            // You can add more animations based on scroll position
+        });
+    </script>
+</body>
+</html>
+                        <div class="card-value" id="active-subs">856</div>
+                        <div class="card-footer">+8% from last month</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span>Total Videos</span>
+                            <i>🎬</i>
+                        </div>
+                        <div class="card-value" id="total-videos">324</div>
+                        <div class="card-footer">+24 new this month</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span>Revenue</span>
+                            <i>💰</i>
+                        </div>
+                        <div class="card-value" id="total-revenue">₹1,24,500</div>
+                        <div class="card-footer">+15% from last month</div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <h3>Recent Users</h3>
+                    <table id="recent-users">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Plan</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#1001</td>
+                                <td>Rahul Sharma</td>
+                                <td>rahul@example.com</td>
+                                <td><span class="badge">Premium</span></td>
+                                <td>2 days ago</td>
+                                <td>
+                                    <button class="btn btn-primary">View</button>
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <!-- More rows would be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Users Section -->
+            <div class="content-section" id="users">
+                <div class="tabs">
+                    <div class="tab active" data-tab="all-users">All Users</div>
+                    <div class="tab" data-tab="add-user">Add New User</div>
+                </div>
+                
+                <div class="tab-content active" id="all-users">
+                    <div class="table-container">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <h3>All Users</h3>
+                            <input type="text" placeholder="Search users..." style="width: 300px;">
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Plan</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- User data would be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="add-user">
+                    <div class="table-container">
+                        <h3>Add New User</h3>
+                        <form id="add-user-form">
+                            <div class="form-group">
+                                <label for="user-name">Full Name</label>
+                                <input type="text" id="user-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-email">Email</label>
+                                <input type="email" id="user-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-plan">Subscription Plan</label>
+                                <select id="user-plan">
+                                    <option value="free">Free</option>
+                                    <option value="basic">Basic</option>
+                                    <option value="standard">Standard</option>
+                                    <option value="premium">Premium</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add User</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Videos Section -->
+            <div class="content-section" id="videos">
+                <div class="tabs">
+                    <div class="tab active" data-tab="all-videos">All Videos</div>
+                    <div class="tab" data-tab="upload-video">Upload Video</div>
+                </div>
+                
+                <div class="tab-content active" id="all-videos">
+                    <div class="table-container">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <h3>All Videos</h3>
+                            <input type="text" placeholder="Search videos..." style="width: 300px;">
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Views</th>
+                                    <th>Uploaded</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Video data would be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="upload-video">
+                    <div class="table-container">
+                        <h3>Upload New Video</h3>
+                        <form id="upload-video-form">
+                            <div class="form-group">
+                                <label for="video-title">Title</label>
+                                <input type="text" id="video-title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-description">Description</label>
+                                <textarea id="video-description" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-category">Category</label>
+                                <select id="video-category">
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="education">Education</option>
+                                    <option value="sports">Sports</option>
+                                    <option value="music">Music</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-file">Video File</label>
+                                <input type="file" id="video-file" accept="video/*" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-thumbnail">Thumbnail</label>
+                                <input type="file" id="video-thumbnail" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload Video</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other sections would be similar -->
+            
+        </div>
+    </div>
+
+    <script>
+        // Navigation between sections
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active nav item
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update section title
+                const sectionName = this.getAttribute('data-section');
+                document.getElementById('section-title').textContent = 
+                    sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+                
+                // Show selected section
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionName).classList.add('active');
+            });
+        });
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                const tabContainer = this.closest('.tabs').parentElement;
+                
+                // Update active tab
+                tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected tab content
+                tabContainer.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                tabContainer.querySelector(`#${tabId}`).classList.add('active');
+            });
+        });
+        
+        // Form submissions
+        document.getElementById('add-user-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In real app, send data to server
+            alert('User added successfully!');
+            this.reset();
+        });
+        
+        document.getElementById('upload-video-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In real app, upload file to server
+            alert('Video uploaded successfully!');
+            this.reset();
+        });
+        
+        // In a real app, you would fetch data from your backend API
+        // Example:
+        /*
+        fetch('/api/users')
+            .then(response => response.json())
+            .then(data => {
+                // Populate user table
+            });
+        */
+    </script>
+</body>
+</html>
+<!-- Admin Login Modal -->
+<div id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 30px; border-radius: 10px; width: 400px; max-width: 90%;">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Username</label>
+                <input type="text" id="adminUsername" required style="width: 100%; padding: 8px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px;">Password</label>
+                <input type="password" id="adminPassword" required style="width: 100%; padding: 8px;">
+            </div>
+            <button type="submit" style="background: #4361ee; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Login</button>
+        </form>
+    </div>
+</div>
+<div class="controls">
+    <!-- Play/Pause Button -->
+    <button id="playPauseBtn">
+        <img src="https://cdn-icons-png.flaticon.com/512/7960/7960808.png" class="btn-icon" alt="Play">
+    </button>
+    
+    <!-- Mute Button -->
+    <button id="muteBtn">
+        <img src="https://cdn-icons-png.flaticon.com/512/7089/7089842.png" class="btn-icon" alt="Volume">
+    </button>
+    
+    <!-- Progress Bar (unchanged) -->
+    <div class="progress-container" id="progressContainer">
+        <div id="progressBar"></div>
+    </div>
+    
+    <!-- Time Display (unchanged) -->
+    <span class="time" id="currentTime">00:00</span>
+    <span class="time">/</span>
+    <span class="time" id="duration">00:00</span>
+    
+    <!-- Fullscreen Button -->
+    <button id="fullscreenBtn">
+        <img src="https://cdn-icons-png.flaticon.com/512/2089/2089676.png" class="btn-icon" alt="Fullscreen">
+    </button>
+    
+    <!-- Download Button (for premium users) -->
+    <button id="downloadBtn" style="display: none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/724/724933.png" class="btn-icon" alt="Download">
+    </button>
+</div>
+
+<!-- Load Button -->
+<button id="loadBtn">
+    <img src="https://cdn-icons-png.flaticon.com/512/3756/3756664.png" class="btn-icon" alt="Load">
+    <span>Load Video</span>
+</button>
+<div class="payment-methods">
+    <h3>Payment Methods</h3>
+    <div class="methods">
+        <!-- UPI Payments -->
+        <div class="payment-icon" title="UPI">
+            <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="UPI">
+            <span>UPI</span>
+        </div>
+        
+        <!-- Credit/Debit Cards -->
+        <div class="payment-icon" title="Credit/Debit Cards">
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Cards">
+            <span>Cards</span>
+        </div>
+        
+        <!-- Net Banking -->
+        <div class="payment-icon" title="Net Banking">
+            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050153.png" alt="Net Banking">
+            <span>Net Banking</span>
+        </div>
+        
+        <!-- Paytm -->
+        <div class="payment-icon" title="Paytm">
+            <img src="https://cdn-icons-png.flaticon.com/512/2504/2504929.png" alt="Paytm">
+            <span>Paytm</span>
+        </div>
+        
+        <!-- PhonePe -->
+        <div class="payment-icon" title="PhonePe">
+            <img src="https://cdn-icons-png.flaticon.com/512/2504/2504924.png" alt="PhonePe">
+            <span>PhonePe</span>
+        </div>
+        
+        <!-- Amazon Pay -->
+        <div class="payment-icon" title="Amazon Pay">
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888853.png" alt="Amazon Pay">
+            <span>Amazon Pay</span>
+        </div>
+    </div>
+</div>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="handheldFriendly" content="true">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
